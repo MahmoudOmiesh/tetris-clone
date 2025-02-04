@@ -35,3 +35,12 @@ export const SCORE_PER_LINE = {
   3: 300,
   4: 1200,
 };
+
+export const CONTROLS = {
+  MOVE_LEFT: ['ArrowLeft', 'h', 'H'],
+  MOVE_RIGHT: ['ArrowRight', 'l', 'L'],
+  MOVE_DOWN: ['ArrowDown', 'j', 'J'],
+  ROTATE: ['ArrowUp', 'k', 'K'],
+  DROP: [' '],
+  PAUSE: ['Escape'],
+};

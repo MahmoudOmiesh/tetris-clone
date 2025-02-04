@@ -7,6 +7,7 @@ import lineClearSound from '../sfx/line-clear.mp3';
 import useSound from 'use-sound';
 
 import {
+  CONTROLS,
   GAME_SPEEDS,
   GRID_EXTRA_ROWS,
   LINES_PER_LEVEL,
@@ -150,24 +151,26 @@ export function useTetris() {
   useEffect(() => {
     if (!didGameStart || didPlayerLose) return;
 
-    const handleEscapeKey = (e) => {
-      if (e.key !== 'Escape' || e.repeat) return;
+    const handlePauseKey = (e) => {
+      if (!CONTROLS.PAUSE.includes(e.key) || e.repeat) return;
 
       if (isGameRunning) stopGame();
       else resumeGame();
     };
 
-    document.addEventListener('keydown', handleEscapeKey);
+    document.addEventListener('keydown', handlePauseKey);
 
-    return () => document.removeEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handlePauseKey);
   }, [didGameStart, didPlayerLose, isGameRunning, resumeGame, stopGame]);
 
   useEffect(() => {
     if (!isGameRunning) return;
 
     const handleKeyDown = (e) => {
+      const { key } = e;
+
       if (
-        e.key === 'ArrowDown' &&
+        CONTROLS.MOVE_DOWN.includes(key) &&
         canPieceMove(tetrisBoard, currentPiece, 'down')
       ) {
         setGameSpeed(null);
@@ -175,21 +178,21 @@ export function useTetris() {
       }
 
       if (
-        e.key === 'ArrowLeft' &&
+        CONTROLS.MOVE_LEFT.includes(key) &&
         canPieceMove(tetrisBoard, currentPiece, 'left')
       ) {
         movePieceAndPlaySound('left');
       }
 
       if (
-        e.key === 'ArrowRight' &&
+        CONTROLS.MOVE_RIGHT.includes(key) &&
         canPieceMove(tetrisBoard, currentPiece, 'right')
       ) {
         movePieceAndPlaySound('right');
       }
 
       if (
-        e.key === 'ArrowUp' &&
+        CONTROLS.ROTATE.includes(key) &&
         !e.repeat &&
         canPieceRotate(tetrisBoard, currentPiece)
       ) {
@@ -197,7 +200,7 @@ export function useTetris() {
       }
 
       if (
-        e.key === ' ' &&
+        CONTROLS.DROP.includes(key) &&
         !e.repeat &&
         canPieceMove(tetrisBoard, currentPiece, 'down')
       ) {
@@ -207,7 +210,7 @@ export function useTetris() {
     };
 
     const handleKeyUp = (e) => {
-      if (e.key === 'ArrowDown') {
+      if (CONTROLS.MOVE_DOWN.includes(e.key)) {
         setGameSpeed(Math.min(GAME_SPEEDS[level], GAME_SPEEDS.slidingWindow));
       }
     };
