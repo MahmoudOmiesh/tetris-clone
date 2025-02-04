@@ -75,6 +75,53 @@ body {
   }
 }
 
+.controls-list {
+  list-style: none;
+  font-size: 2rem;
+}
+
+.controls-list li {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  align-items: center;
+  justify-items: start;
+  gap: 8rem;
+}
+
+.controls-list li + li {
+  margin-top: 1rem;
+}
+
+.keys {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 1rem;
+}
+
+.key {
+  background-color: var(--clr-accent);
+  color: black;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.btn {
+  font: inherit;
+  background-color: var(--clr-main);
+  color: var(--clr-accent);
+  border: 0;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-size: 1.75rem;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  outline: 3px solid var(--clr-accent);
+}
+
 .tetris-grid {
   width: 20rem;
   margin-top: -12%;

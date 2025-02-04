@@ -16,8 +16,10 @@ function App() {
     didGameStart,
     isGameRunning,
     didPlayerLose,
-    startNewGame,
+    areControlsShown,
     animationInfo,
+    startNewGame,
+    viewControls,
     setAnimationInfo,
   } = useTetris();
 
@@ -39,9 +41,9 @@ function App() {
     <>
       {!isGameRunning && (
         <TetrisModal
-          isGameRunning={isGameRunning}
           didPlayerLose={didPlayerLose}
           didGameStart={didGameStart}
+          areControlsShown={areControlsShown}
         />
       )}
       <div className='wrapper'>
@@ -55,12 +57,23 @@ function App() {
           animationInfo={animationInfo}
           setAnimationInfo={setAnimationInfo}
         />
-        <Stats
-          score={score}
-          lines={clearedLines}
-          level={level}
-          nextPieceName={nextPiece.name}
-        />
+        <div className='column'>
+          <Stats
+            score={score}
+            lines={clearedLines}
+            level={level}
+            nextPieceName={nextPiece.name}
+          />
+          <button
+            className='btn'
+            onClick={(e) => {
+              viewControls();
+              e.currentTarget.blur();
+            }}
+          >
+            Controls
+          </button>
+        </div>
       </div>
     </>
   );

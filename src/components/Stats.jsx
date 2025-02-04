@@ -3,7 +3,7 @@ import { cc } from '../utilities/helpers';
 
 export function StatsComponent({ nextPieceName, score, lines, level }) {
   return (
-    <div className='column'>
+    <>
       <div className='next clipped-border'>
         <h1>NEXT</h1>
         <div className='nextpiece' data-piece-name={nextPieceName}>
@@ -27,7 +27,7 @@ export function StatsComponent({ nextPieceName, score, lines, level }) {
           <p className='stat-value'>{score}</p>
         </li>
       </ul>
-    </div>
+    </>
   );
 }
 

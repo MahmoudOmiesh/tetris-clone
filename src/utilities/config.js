@@ -37,10 +37,10 @@ export const SCORE_PER_LINE = {
 };
 
 export const CONTROLS = {
-  MOVE_LEFT: ['ArrowLeft', 'h', 'H'],
-  MOVE_RIGHT: ['ArrowRight', 'l', 'L'],
-  MOVE_DOWN: ['ArrowDown', 'j', 'J'],
-  ROTATE: ['ArrowUp', 'k', 'K'],
+  MOVE_LEFT: ['ArrowLeft', 'h'],
+  MOVE_RIGHT: ['ArrowRight', 'l'],
+  MOVE_DOWN: ['ArrowDown', 'j'],
+  ROTATE: ['ArrowUp', 'k'],
   DROP: [' '],
   PAUSE: ['Escape'],
 };

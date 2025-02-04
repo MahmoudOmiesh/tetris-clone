@@ -1,6 +1,16 @@
 import { Modal } from './Modal';
+import { CONTROLS } from '../utilities/config';
 
-export function TetrisModal({ didGameStart, didPlayerLose }) {
+const keyMappings = {
+  ArrowLeft: '←',
+  ArrowRight: '→',
+  ArrowUp: '↑',
+  ArrowDown: '↓',
+  ' ': 'Space',
+  Escape: 'Esc',
+};
+
+export function TetrisModal({ didGameStart, didPlayerLose, areControlsShown }) {
   const startGameModal = (
     <>
       <h1 className='modal-title'>Tetris</h1>
@@ -22,9 +32,34 @@ export function TetrisModal({ didGameStart, didPlayerLose }) {
     </>
   );
 
+  const controlsModal = (
+    <ul className='controls-list'>
+      {Object.entries(CONTROLS).map(([control, keys]) => {
+        return (
+          <li key={control}>
+            <p>{control.split('_').join(' ')}</p>
+            <div className='keys'>
+              {keys.map((key) => (
+                <div className='key' key={key}>
+                  {keyMappings[key] || key}
+                </div>
+              ))}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+
   return (
     <Modal>
-      {didGameStart ? (didPlayerLose ? loseModal : pauseModal) : startGameModal}
+      {areControlsShown
+        ? controlsModal
+        : didGameStart
+          ? didPlayerLose
+            ? loseModal
+            : pauseModal
+          : startGameModal}
     </Modal>
   );
 }

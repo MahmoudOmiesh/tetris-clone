@@ -35,6 +35,7 @@ export function useTetris() {
   const [didGameStart, setDidGameStart] = useState(false);
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [didPlayerLose, setDidPlayerLose] = useState(false);
+  const [areControlsShown, setAreControlsShown] = useState(false);
 
   const [gameSpeed, setGameSpeed] = useState(null);
 
@@ -78,6 +79,11 @@ export function useTetris() {
     setDidPlayerLose(true);
     setGameSpeed(null);
   }, []);
+
+  const viewControls = useCallback(() => {
+    stopGame();
+    setAreControlsShown(true);
+  }, [stopGame]);
 
   const movePieceAndPlaySound = useCallback(
     (dir) => {
@@ -141,14 +147,6 @@ export function useTetris() {
   };
 
   useEffect(() => {
-    if (!isGameRunning) return;
-
-    if (!canPieceMove(tetrisBoard, currentPiece, 'down')) {
-      setGameSpeed(GAME_SPEEDS.slidingWindow);
-    }
-  }, [isGameRunning, tetrisBoard, currentPiece]);
-
-  useEffect(() => {
     if (!didGameStart || didPlayerLose) return;
 
     const handlePauseKey = (e) => {
@@ -162,6 +160,29 @@ export function useTetris() {
 
     return () => document.removeEventListener('keydown', handlePauseKey);
   }, [didGameStart, didPlayerLose, isGameRunning, resumeGame, stopGame]);
+
+  useEffect(() => {
+    if (!areControlsShown) return;
+
+    const handlePauseKey = (e) => {
+      if (!CONTROLS.PAUSE.includes(e.key) || e.repeat) return;
+
+      setAreControlsShown(false);
+      resumeGame();
+    };
+
+    document.addEventListener('keydown', handlePauseKey);
+
+    return () => document.removeEventListener('keydown', handlePauseKey);
+  }, [areControlsShown, resumeGame]);
+
+  useEffect(() => {
+    if (!isGameRunning) return;
+
+    if (!canPieceMove(tetrisBoard, currentPiece, 'down')) {
+      setGameSpeed(GAME_SPEEDS.slidingWindow);
+    }
+  }, [isGameRunning, tetrisBoard, currentPiece]);
 
   useEffect(() => {
     if (!isGameRunning) return;
@@ -249,8 +270,10 @@ export function useTetris() {
     didGameStart,
     isGameRunning,
     didPlayerLose,
-    startNewGame,
+    areControlsShown,
     animationInfo,
+    startNewGame,
+    viewControls,
     setAnimationInfo,
   };
 }
