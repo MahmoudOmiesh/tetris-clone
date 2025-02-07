@@ -4,8 +4,8 @@ A clone of the classic tetris game built using **React** . The game includes sco
 
 Try it out [here.](https://sage-tapioca-b51a38.netlify.app/)
 
-![](https://github.com/MahmoudOmiesh/tetris-clone/blob/main/photos/gameplay.png)
-![](https://github.com/MahmoudOmiesh/tetris-clone/blob/main/photos/pause.png)
+<img align="left" src="https://github.com/MahmoudOmiesh/tetris-clone/blob/main/photos/gameplay.png">
+<img align="right" src="https://github.com/MahmoudOmiesh/tetris-clone/blob/main/photos/pause.png">
 ![](https://github.com/MahmoudOmiesh/tetris-clone/blob/main/photos/controls.png)
 ![](https://github.com/MahmoudOmiesh/tetris-clone/blob/main/photos/lose.png)
 
